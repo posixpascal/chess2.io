@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	body {
+		@apply bg-slate-900 text-slate-300;
+	}
+
+	h1 {
+		@apply text-xl;
+	}
+
+	h2 {
+		@apply text-4xl font-medium;
+	}
+
+	h3 {
+		@apply text-4xl mb-10 font-thin;
+	}
+
+	h5 {
+		@apply mt-5 text-xl;
+	}
+
+	button {
+		@apply bg-blue-200 px-4 py-3 rounded text-blue-900;
+	}
+
+	button.cta {
+		@apply px-10 py-4 text-3xl;
+	}
+
+	button.primary {
+		@apply bg-blue-900 text-blue-200;
+	}
+
+	a {
+		@apply text-blue-300 hover:underline;
+	}
+}

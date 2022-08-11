@@ -1,0 +1,16 @@
+{
+  "name": "@chess2/tensorflow",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@tensorflow/tfjs": "^3.19.0",
+    "@tensorflow/tfjs-node": "^3.19.0",
+    "@tensorflow/tfjs-node-gpu": "^3.19.0",
+    "@types/argparse": "^2.0.10",
+    "@types/shelljs": "^0.8.11",
+    "argparse": "^2.0.1",
+    "shelljs": "^0.8.5"
+  }
+}
