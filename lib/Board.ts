@@ -1,22 +1,13 @@
 import { Crow } from "./pieces/Crow";
-import { BoardPosition, Color, Turn } from "./types";
-import type { Piece } from "./pieces/Piece";
+import { BoardPosition, Color, SerializedPiece, Turn } from "./types";
+import { Piece } from "./pieces/Piece";
 import { Monkey } from "./pieces/Monkey";
 import { Fish } from "./pieces/Fish";
 import { Elephant } from "./pieces/Elephant";
 import { Queen } from "./pieces/Queen";
 import { King } from "./pieces/King";
 import { Bear } from "./pieces/Bear";
-
-export const SOUNDS = {
-  capture: "/sounds/capture.mp3",
-  move: "/sounds/move.mp3",
-  prisoner: "/sounds/prisoner.mp3",
-  release: "/sounds/release.mp3",
-  dropped: "/sounds/dropped.mp3",
-  victory: "/sounds/victory.mp3",
-  defeat: "/sounds/defeat.mp3",
-};
+import { makePiece } from "./utils";
 
 export default class Board {
   pieces = [
@@ -60,7 +51,9 @@ export default class Board {
     Fish.make(this, Color.WHITE, { x: 6, y: 6 }),
     Fish.make(this, Color.WHITE, { x: 7, y: 6 }),
   ];
+
   hasDefaultBear = true;
+
   isOver = false;
   winner: Color | null = null;
 
@@ -114,7 +107,7 @@ export default class Board {
 
     this.createTurn({
       from: pieceAtPos,
-      fromPiece: monkey,
+      fromPiece: monkey.toServerState(),
       to: pieceAtPos,
       rescuedKing: true,
     });
@@ -211,7 +204,7 @@ export default class Board {
     this.createTurn({
       isBear: true,
       to: toPosition,
-      toPiece: bear,
+      toPiece: bear.toServerState(),
     });
 
     this.playAudio("move");
@@ -277,21 +270,15 @@ export default class Board {
     this.createTurn({
       from: fromPosition,
       to: toPosition,
-      toPiece: {
-        color: toPiece?.color,
-        imageKey: toPiece?.imageKey,
-        isImprisonable: toPiece?.isImprisonable,
-      },
-      fromPiece: {
-        color: fromPiece?.color,
-        imageKey: fromPiece?.imageKey,
-      },
+      toPiece: toPiece?.toServerState(),
+      fromPiece: fromPiece?.toServerState(),
       tookPiece: !!toPiece,
       droppedKing: false,
       rescuedKing: false,
     });
 
     fromPiece.postMove(fromPosition);
+
     return this;
   }
 
@@ -329,33 +316,33 @@ export default class Board {
     // });
   }
 
+  /**
+   * Replicate the board client side from a json payload.
+   * @param serverState
+   */
   static fromServerState(serverState: ServerState) {
-    const classForType = {
-      King: King,
-      Queen: Queen,
-      Monkey: Monkey,
-      Crow: Crow,
-      Fish: Fish,
-      Elephant: Elephant,
-      Bear: Bear,
-    };
-
     const board = new this();
-    board.turns = serverState.turns;
+    board.turns = serverState.turns.map((turn) => {
+      return {
+        ...turn,
+        toPiece: turn.toPiece
+          ? makePiece(turn.toPiece as SerializedPiece, board)
+          : null,
+        fromPiece: turn.fromPiece
+          ? makePiece(turn.fromPiece as SerializedPiece, board)
+          : null,
+      };
+    });
     board.isOver = serverState.isOver;
     board.winner = serverState.winner;
+
     // only pieces and prison is required to be serialized
     board.pieces = serverState.pieces.map((serializedPiece) => {
-      const type = serializedPiece.type;
-      const pieceClass = classForType[type];
+      if (!serializedPiece) {
+        return null;
+      }
 
-      const piece = pieceClass.make(
-        board,
-        serializedPiece.color as Color,
-        serializedPiece.position
-      );
-      piece.setAttributes(serializedPiece.attributes);
-      return piece;
+      return makePiece(serializedPiece, board);
     });
 
     board.prisons = serverState.prisons.map((serializedPiece) => {
@@ -363,79 +350,37 @@ export default class Board {
         return null;
       }
 
-      const type = serializedPiece.type;
-      const pieceClass = classForType[type];
-
-      const piece = pieceClass.make(
-        board,
-        serializedPiece.color as Color,
-        serializedPiece.position
-      );
-      piece.setAttributes(serializedPiece.attributes);
-      return piece;
+      return makePiece(serializedPiece, board);
     });
-
     board.hasDefaultBear = serverState.hasDefaultBear;
+
     return board;
   }
 
   toServerState(): ServerState {
-    const typeForClass = (piece: Piece) => {
-      if (piece instanceof King) {
-        return "King";
-      }
-
-      if (piece instanceof Queen) {
-        return "Queen";
-      }
-
-      if (piece instanceof Bear) {
-        return "Bear";
-      }
-
-      if (piece instanceof Fish) {
-        return "Fish";
-      }
-
-      if (piece instanceof Monkey) {
-        return "Monkey";
-      }
-
-      if (piece instanceof Crow) {
-        return "Crow";
-      }
-
-      if (piece instanceof Elephant) {
-        return "Elephant";
-      }
-    };
-
     return {
       hasDefaultBear: this.hasDefaultBear,
       isOver: this.isOver,
       winner: this.winner,
-      turns: this.turns,
+      turns: this.turns.map((turn) => {
+        return {
+          ...turn,
+          fromPiece: turn.fromPiece,
+          toPiece: turn.toPiece,
+        };
+      }),
       pieces: this.pieces.map((piece) => {
         if (!piece) {
           return null;
         }
-        return {
-          type: typeForClass(piece),
-          position: piece.position,
-          attributes: piece.getAttributes(),
-          color: piece.color,
-        };
+
+        return piece.toServerState();
       }),
       prisons: this.prisons.map((piece) => {
         if (!piece) {
           return null;
         }
-        return {
-          type: typeForClass(piece),
-          position: piece.position,
-          attributes: piece.getAttributes(),
-          color: piece.color,
-        };
+        return piece.toServerState();
       }),
     };
   }
@@ -446,16 +391,6 @@ interface ServerState {
   turns: Turn[];
   isOver: boolean;
   winner: Color;
-  pieces: Array<{
-    type: "King" | "Queen" | "Crow" | "Elephant" | "Bear" | "Monkey" | "Fish";
-    position: BoardPosition;
-    color: string;
-    attributes: Record<string, any>;
-  }>;
-  prisons: Array<{
-    type: "King" | "Queen" | "Crow" | "Elephant" | "Bear" | "Monkey" | "Fish";
-    position: BoardPosition;
-    color: string;
-    attributes: Record<string, any>;
-  }>;
+  pieces: Array<SerializedPiece>;
+  prisons: Array<SerializedPiece>;
 }

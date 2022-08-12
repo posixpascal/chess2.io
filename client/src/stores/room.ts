@@ -8,10 +8,19 @@ export const rooms: Writable<Record<string, Room>> = writable({});
 
 export const socket = io('http://localhost:3000');
 
+export const SOUNDS = {
+	capture: new Audio('/sounds/capture.mp3'),
+	move: new Audio('/sounds/move.mp3'),
+	prisoner: new Audio('/sounds/prisoner.mp3'),
+	release: new Audio('/sounds/release.mp3'),
+	dropped: new Audio('/sounds/dropped.mp3'),
+	victory: new Audio('/sounds/victory.mp3'),
+	defeat: new Audio('/sounds/defeat.mp3')
+};
+
 export const createRoom = async () => {
 	return new Promise((resolve) => {
 		socket.once(events.ROOM_CREATED, (data) => {
-			console.log(data);
 			rooms.update((r) => {
 				r[data.id] = data;
 				return r;
@@ -22,12 +31,15 @@ export const createRoom = async () => {
 	});
 };
 
-export const subscribeRoom = async (room, callback) => {
-	socket.on(events.BOARD_UPDATED, (data) => {
+export const subscribeRoom = async (room: any, callback: (data: any) => {}) => {
+	socket.on(events.ROOM_UPDATED, (data) => {
 		if (data.id === room.id) {
-			console.log('changed', data, room);
 			callback(data);
 		}
+	});
+
+	socket.on(events.PLAY_SOUND, (data: any) => {
+		(SOUNDS as any)[data].play();
 	});
 };
 

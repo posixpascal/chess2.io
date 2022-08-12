@@ -10,10 +10,15 @@
 	export let game: GameStore;
 	export let board;
 	export let position;
+	export let canMove;
 
 	let movable = false;
 
 	const selectPiece = () => {
+		if (!canMove) {
+			return;
+		}
+
 		if ($game.selectedDefaultBear) {
 			return game.moveBear(position);
 		}

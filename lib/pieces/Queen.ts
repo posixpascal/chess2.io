@@ -2,6 +2,7 @@ import type { BoardPosition } from "../types";
 import { Piece } from "./Piece";
 
 export class Queen extends Piece {
+  type = "Queen";
   value = 9;
   get imageKey() {
     return "Queen";

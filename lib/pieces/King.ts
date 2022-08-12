@@ -2,6 +2,7 @@ import type { BoardPosition } from "../types";
 import { Piece } from "./Piece";
 
 export class King extends Piece {
+  type = "King";
   value = 8;
   isImprisonable = true;
 
@@ -13,6 +14,20 @@ export class King extends Piece {
   }
 
   hasBanana = true;
+
+  getAttributes(): Record<string, any> {
+    return {
+      hasBanana: this.hasBanana,
+    };
+  }
+
+  setAttributes(attributes: Record<string, any>) {
+    if (!attributes) {
+      return;
+    }
+
+    this.hasBanana = attributes.hasBanana;
+  }
 
   get possibleMoves() {
     return [

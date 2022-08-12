@@ -3,8 +3,23 @@ import { Piece } from "./Piece";
 import { Color } from "../types";
 
 export class Fish extends Piece {
+  type = "Fish";
   value = 2;
   isPromoted = false;
+
+  getAttributes(): Record<string, any> {
+    return {
+      isPromoted: this.isPromoted,
+    };
+  }
+
+  setAttributes(attributes: Record<string, any>) {
+    if (!attributes) {
+      return;
+    }
+
+    this.isPromoted = attributes.isPromoted;
+  }
 
   get imageKey() {
     if (this.isPromoted) {

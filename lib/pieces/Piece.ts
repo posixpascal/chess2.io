@@ -1,9 +1,11 @@
-import { Color } from "../types";
+import { Color, SerializedPiece } from "../types";
 import type { BoardPosition } from "../types";
 import type Board from "../Board";
 
 export class Piece {
+  type: string = "Piece";
   value = 128;
+
   get imageKey() {
     return "";
   }
@@ -308,5 +310,14 @@ export class Piece {
         y: this.position.y - delta,
       },
     ];
+  }
+
+  toServerState(): SerializedPiece {
+    return {
+      type: this.type,
+      position: this.position,
+      attributes: this.getAttributes(),
+      color: this.color,
+    };
   }
 }

@@ -7,6 +7,8 @@
 	export let small = false;
 	export let game: any;
 	export let board: any;
+	export let flipped: any;
+	export let canMove = true;
 
 	$: selectablePrisonCell = $game.selectedPiece && $game.selectedPiece.selectablePrisonCell;
 
@@ -18,25 +20,53 @@
 	};
 
 	const selectPrisonCell = () => {
+		if (!canMove) {
+			return;
+		}
+
 		if (!$game.selectedPiece || selectablePrisonCell < 0) {
 			return;
 		}
+
 		game.selectPrisonCell(selectablePrisonCell);
 	};
+
+	const rematch = () => {
+		game.rematch();
+	};
+
+	$: pieceImage = $game.selectedPiece
+		? '/pieces/' + $game.selectedPiece.color + '/' + $game.selectedPiece.imageKey + '.png'
+		: null;
+	$: bearImage = $game.selectedDefaultBear ? '/pieces/other/Bear.png' : null;
 </script>
 
-<div class="board" on:mousemove={updateMousePosition} class:small>
+{#if pieceImage || bearImage}
+	<img
+		alt=""
+		class="clone"
+		src={pieceImage || bearImage}
+		width={small ? 28 : 58}
+		height={small ? 28 : 58}
+		style="
+            top: {$mousePosition ? $mousePosition.y : 0}px;
+            left: {$mousePosition ? $mousePosition.x : 0}px;
+        "
+	/>
+{/if}
+
+<div class="board" class:flipped on:mousemove={updateMousePosition} class:small>
 	{#if $board.isOver}
 		<div class="gameover">
-			<h2>
+			<h2 class="text-center">
 				GAME OVER<br />
 				{$board.winner} wins<br />
 			</h2>
-			<button class="cta">Quickmatch</button>
+			<button class="cta" on:click={rematch}>Rematch</button>
 		</div>
 	{/if}
 	{#if $board.hasDefaultBear}
-		<BearHandler {game} />
+		<BearHandler {game} {canMove} />
 	{/if}
 	<div class="inner">
 		{#each $board.field as row, rowIndex (rowIndex)}
@@ -48,12 +78,12 @@
 						class:movable={selectablePrisonCell === 2 + rowIndex - 3}
 					>
 						{#if $board.prisons[2 + rowIndex - 3]}
-							<PieceHandler {board} {small} piece={$board.prisons[2 + rowIndex - 3]} />
+							<PieceHandler {canMove} {board} {small} piece={$board.prisons[2 + rowIndex - 3]} />
 						{/if}
 					</div>
 				{/if}
 				{#each row as piece, cellIndex (cellIndex)}
-					<Cell {small} {piece} position={{ y: rowIndex, x: cellIndex }} {game} {board} />
+					<Cell {canMove} {small} {piece} position={{ y: rowIndex, x: cellIndex }} {game} {board} />
 				{/each}
 				{#if rowIndex === 3 || rowIndex === 4}
 					<div
@@ -62,7 +92,7 @@
 						class:movable={selectablePrisonCell === rowIndex - 3}
 					>
 						{#if $board.prisons[rowIndex - 3]}
-							<PieceHandler {small} piece={$board.prisons[rowIndex - 3]} />
+							<PieceHandler {canMove} {small} piece={$board.prisons[rowIndex - 3]} />
 						{/if}
 					</div>
 				{/if}
@@ -72,10 +102,32 @@
 </div>
 
 <style>
+	.clone {
+		z-index: 20;
+		display: flex;
+		transform: scale(0.9) translateX(-24px) translateY(-10px);
+		opacity: 0.8;
+		position: fixed;
+		pointer-events: none;
+	}
+
+	.board.flipped :global(.bear) {
+		transform: scaleY(-1) translateY(30px);
+	}
+
+	.board.flipped {
+		transform: scaleY(-1);
+	}
+
+	.board.flipped .row {
+		transform: scaleY(-1);
+	}
+
 	.gameover {
 		position: absolute;
 		inset: 0;
 		gap: 10px;
+		z-index: 20;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;

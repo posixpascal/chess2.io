@@ -15,5 +15,4 @@
 
 <div class="flex items-center justify-center my-20 flex-col">
 	<h2>Creating Lobby...</h2>
-	<iframe src="https://embed.lottiefiles.com/animation/97930" />
 </div>

@@ -23,16 +23,23 @@
 		@apply mt-5 text-xl;
 	}
 
-	button {
-		@apply bg-blue-200 px-4 py-3 rounded text-blue-900;
+	button,
+	.button {
+		@apply bg-blue-200 px-4 py-3 rounded text-blue-900 hover:bg-blue-400 hover:text-blue-200;
 	}
 
-	button.cta {
+	.button:hover {
+		text-decoration: none;
+	}
+
+	button.cta,
+	.button.cta {
 		@apply px-10 py-4 text-3xl;
 	}
 
-	button.primary {
-		@apply bg-blue-900 text-blue-200;
+	button.primary,
+	.button.cta {
+		@apply bg-blue-900 text-blue-200 hover:bg-blue-200 hover:text-blue-900;
 	}
 
 	a {

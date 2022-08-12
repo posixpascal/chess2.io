@@ -6,11 +6,11 @@
 		Chess 2 by
 		<a target="_blank" href="https://www.youtube.com/watch?v=mcivL8u176Y"> Oats Jenkins </a>
 	</div>
-	<div class="space-x-10">
-		<a>Contact me</a>
-		<a>View Source</a>
-		<a>Report Bugs</a>
-		<span>|</span>
+	<div class="space-x-6">
+		<a href="//pascalraszyk.de/imprint">Imprint</a>
+		<a href="//github.com/posixpascal/better-chess">View Source</a>
+		<a href="//github.com/posixpascal/better-chess/issues">Report Bugs</a>
+		<span class="text-gray-600">/</span>
 		<span> No cookies. No tracking. No bullshit. </span>
 	</div>
 </footer>

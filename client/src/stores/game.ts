@@ -4,7 +4,7 @@ import { writable } from 'svelte/store';
 import type { Piece } from '../../../lib/pieces/Piece';
 import type { BoardPosition } from '../../../lib/types';
 import type { Socket } from 'socket.io-client';
-import { BEAR_MOVE, PIECE_MOVE } from '../../../shared/events';
+import { BEAR_MOVE, REMATCH, RELEASE_PRISONER_MOVE, PIECE_MOVE } from '../../../shared/events';
 import { socket } from './room';
 
 export interface GameState {
@@ -27,14 +27,16 @@ export interface GameStore extends Writable<GameState> {
 	selectPrisonCell: (cell: number) => void;
 	moveBear: (toPosition: BoardPosition) => void;
 	moveSelectedPiece: (toPosition: BoardPosition) => void;
+	rematch: () => void;
 }
 
 export const createGameStore = (
 	gameId: string,
 	managedBoard = null,
-	room: Room | null = null
+	room: Room | null = null,
+	computer: boolean = false
 ): GameStore => {
-	const board = writable(managedBoard ? managedBoard : new Board());
+	const board = writable(managedBoard ? managedBoard : new Board(computer));
 
 	const game = writable<GameState>({
 		id: gameId,
@@ -72,7 +74,6 @@ export const createGameStore = (
 				} else {
 					// local
 					g.board.update((board: Board) => {
-						console.log(g.selectedPiece!.position, toPosition);
 						return board.move(g.selectedPiece!.position, toPosition);
 					});
 				}
@@ -80,11 +81,32 @@ export const createGameStore = (
 				return { ...g, selectedPiece: null };
 			});
 		},
+		rematch: () => {
+			game.update((g) => {
+				if (room) {
+					socket.emit(REMATCH, {
+						roomId: room.id
+					});
+				} else {
+				}
+
+				return { ...g };
+			});
+		},
 		selectPrisonCell: (cellIndex) => {
 			game.update((g) => {
-				g.board.update((board: Board) => {
-					return board.releasePrisoner(g.selectedPiece!.position, cellIndex);
-				});
+				if (room) {
+					socket.emit(RELEASE_PRISONER_MOVE, {
+						roomId: room.id,
+						position: g.selectedPiece!.position,
+						cellIndex
+					});
+				} else {
+					g.board.update((board: Board) => {
+						return board.releasePrisoner(g.selectedPiece!.position, cellIndex);
+					});
+				}
+
 				return { ...g, selectedPiece: null };
 			});
 		},
@@ -100,7 +122,7 @@ export const createGameStore = (
 			game.update((g) => {
 				if (room) {
 					socket.emit(BEAR_MOVE, {
-						room: room.id,
+						roomId: room.id,
 						to: pos
 					});
 				} else {

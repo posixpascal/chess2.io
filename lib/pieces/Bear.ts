@@ -3,6 +3,7 @@ import { Piece } from "./Piece";
 import { Color } from "../types";
 
 export class Bear extends Piece {
+  type = "Bear";
   value = 1;
   get imageKey() {
     return "Bear";

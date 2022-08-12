@@ -12,8 +12,7 @@
 			>. Play for free.
 		</p>
 		<div class="flex gap-5 my-8 mb-20">
-			<button class="cta primary"> Play with Friends </button>
-			<button class="cta"> Quickmatch </button>
+			<a href="/create" class="button cta primary"> Play with Friends </a>
 		</div>
 		<Game gameId="1234" />
 	</div>
@@ -65,7 +64,7 @@
 </div>
 
 <style>
-	.card {
-		@apply bg-slate-800 p-5 pt-10 rounded-xl hover:shadow-xl cursor-pointer;
-	}
+	/*.card {*/
+	/*	@apply bg-slate-800 p-5 pt-10 rounded-xl hover:shadow-xl cursor-pointer;*/
+	/*}*/
 </style>

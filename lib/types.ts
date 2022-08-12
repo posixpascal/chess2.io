@@ -5,6 +5,11 @@ export interface BoardPosition {
   y: number;
 }
 
+export interface Move {
+  from: BoardPosition;
+  to: BoardPosition;
+}
+
 export enum Color {
   BLACK = "black",
   WHITE = "white",
@@ -22,4 +27,11 @@ export interface Turn {
   tookPiece: boolean;
   rescuedKing: boolean;
   droppedKing: boolean;
+}
+
+export interface SerializedPiece {
+  type: string;
+  position: BoardPosition;
+  color: string;
+  attributes: Record<string, any>;
 }
