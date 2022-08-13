@@ -12,7 +12,7 @@ module.exports = {
       repo : 'git@github.com:posixpascal/better-chess.git',
       path : '/opt/chess2',
       'pre-deploy-local': '',
-      'post-deploy' : 'yarn install && yarn --cwd client install && yarn run build:production && pm2 reload ecosystem.config.js --env production',
+      'post-deploy' : 'yarn install && yarn --cwd client install && yarn run build:production && cp /opt/chess2/client/build/* /opt/chess2/build/static/ && pm2 reload ecosystem.config.js --env production',
       'pre-setup': ''
     }
   }
