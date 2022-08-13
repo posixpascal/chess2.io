@@ -318,6 +318,7 @@ export class Piece {
       position: this.position,
       attributes: this.getAttributes(),
       color: this.color,
+      imageKey: this.imageKey
     };
   }
 }

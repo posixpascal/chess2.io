@@ -34,4 +34,5 @@ export interface SerializedPiece {
   position: BoardPosition;
   color: string;
   attributes: Record<string, any>;
+  imageKey: string;
 }
