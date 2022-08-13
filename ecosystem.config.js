@@ -10,10 +10,10 @@ module.exports = {
       host : '46.101.109.84',
       ref  : 'origin/trunk',
       repo : 'git@github.com:posixpascal/better-chess.git',
-      path : '~/app',
+      path : '/opt/chess2',
       'pre-deploy-local': '',
-      'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env production',
-      'pre-setup': 'npm run build:production'
+      'post-deploy' : 'npm install && npm run build:production && pm2 reload ecosystem.config.js --env production',
+      'pre-setup': ''
     }
   }
 };
