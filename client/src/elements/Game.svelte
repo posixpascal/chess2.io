@@ -10,7 +10,9 @@
 </script>
 
 <div class="flex gap-10">
-	<ChessBoard {game} board={game.board} />
+	<div>
+		<ChessBoard {game} board={game.board} />
+	</div>
 	<GameOverview {game} board={game.board} />
 </div>
 

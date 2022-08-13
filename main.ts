@@ -55,6 +55,7 @@ class Room {
       data.player1 = {
         avatar: avatars[this.player1.id],
         id: this.player1.id,
+        hasTurn: this.playerToMove === this.player1.id
       };
     }
 
@@ -62,6 +63,7 @@ class Room {
       data.player2 = {
         avatar: avatars[this.player2.id],
         id: this.player2.id,
+        hasTurn: this.playerToMove === this.player2.id
       };
     }
 

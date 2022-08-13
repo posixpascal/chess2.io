@@ -1,6 +1,7 @@
 <script>
 	import ChessBoard from '~/elements/ChessBoard.svelte';
 	import Game from '../elements/Game.svelte';
+
 </script>
 
 <div class="container mx-auto text-center">

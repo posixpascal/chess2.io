@@ -2,17 +2,18 @@
 	import Avatar from './Avatar.svelte';
 
 	export let board;
-	export let player1;
-	export let player2;
+	export let players;
+	export let flipped;
 
 	const letters = 'ABCDEFGH';
+	$: player1 = players ? players[1] : false;
+	$: player2 = players ? players[0] : false;
 </script>
 
 <div class="card">
-	<div class="player-black flex items-center gap-5 text-blue-300 text-left player ">
+	<div class:active-turn={player2 ? player2.hasTurn : $board.playerToMove === 'black'} class="player-black flex items-center gap-5 text-blue-300 text-left player ">
 		{#if player2}
 			<Avatar avatar={player2.avatar} />
-			{player2.id}
 		{:else}
 			Player 2
 		{/if}
@@ -59,10 +60,9 @@
 			{/each}
 		</div>
 	</div>
-	<div class="player player-white flex-row-reverse flex items-center gap-5 text-right">
+	<div class:active-turn={player1 ? player1.hasTurn : $board.playerToMove === 'white'} class="player player-white flex-row-reverse flex items-center gap-5 text-right">
 		{#if player1}
 			<Avatar avatar={player1.avatar} />
-			{player1.id}
 		{:else}
 			Player 1
 		{/if}
@@ -101,5 +101,9 @@
 		font-family: monospace;
 		color: #666;
 		padding-right: 5px;
+	}
+
+	.active-turn {
+		@apply bg-blue-300 text-blue-900;
 	}
 </style>

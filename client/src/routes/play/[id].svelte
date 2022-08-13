@@ -14,27 +14,18 @@
 	let board;
 	let game;
 
-	let player1;
-	let player2;
-
 	onMount(async () => {
 		if ($rooms[$page.params.id]) {
 			room = $rooms[$page.params.id];
 			board = Board.fromServerState(room.board);
 			game = createGameStore($page.params.id, board, room);
-			player1 = room.player1;
-			player2 = room.player2;
 		} else {
 			room = await joinRoom($page.params.id);
 			board = Board.fromServerState(room.board);
 			game = createGameStore($page.params.id, board, room);
-			player1 = room.player1;
-			player2 = room.player2;
 		}
 
 		await subscribeRoom(room, (change) => {
-			player1 = change.player1;
-			player2 = change.player2;
 			room = change;
 			board = Board.fromServerState(change.board);
 			game.board.set(board);
@@ -42,7 +33,9 @@
 	});
 
 	$: canMove = room && room.playerToMove === socket.id;
-	$: flipBoard = room && room.playerWhite !== socket.id;
+	$: flipped = room && room.playerWhite !== socket.id;
+	$: player1 = room ? room.player1 : null;
+	$: player2 = room ? room.player2 : null;
 </script>
 
 {#if room}
@@ -73,12 +66,13 @@
 				{#if !room.isReady}
 					<h2 class="text-center mt-20">Waiting for people to join...</h2>
 				{/if}
+
 				<div
 					class:inactive={!room.isReady}
 					class="transition-all ease-in-out duration-500 flex my-20 gap-10"
 				>
-					<ChessBoard flipped={flipBoard} {canMove} {game} board={game.board} />
-					<GameOverview {player1} {player2} {game} board={game.board} />
+					<ChessBoard flipped={flipped} {canMove} {game} board={game.board} />
+					<GameOverview players={flipped ? [player1, player2] : [player2, player1]} {game} board={game.board} />
 				</div>
 			</div>
 		{:else}

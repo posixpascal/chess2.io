@@ -322,6 +322,7 @@ export default class Board {
    */
   static fromServerState(serverState: ServerState) {
     const board = new this();
+
     board.turns = serverState.turns.map((turn) => {
       return {
         ...turn,
@@ -333,6 +334,7 @@ export default class Board {
           : null,
       };
     });
+
     board.isOver = serverState.isOver;
     board.winner = serverState.winner;
 
