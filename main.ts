@@ -21,7 +21,7 @@ const io = new Server(server, {
 });
 
 app.use(cors());
-
+app.use(express.static('./build/static'));
 const rooms: Record<string, Room> = {};
 
 class Room {

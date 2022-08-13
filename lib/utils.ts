@@ -134,14 +134,10 @@ function miniMax(
   let nodes = 0;
 
   for (const move of orderedMoves) {
-    console.log(board.turns.length);
-    board.save();
-
     // console.log("> ".repeat(curDepth) + "MOVE:", moveToSAN(orderedMoves, move));
     try {
       board.move(move.from, move.to);
     } catch (e) {
-      board.saveStates.pop();
       continue;
     }
     console.log(board.turns.length);
@@ -159,7 +155,6 @@ function miniMax(
     //   console.log(moveToSAN(orderedMoves, move), score);
     // }
 
-    board.restore();
 
     nodes += branchNodes;
 

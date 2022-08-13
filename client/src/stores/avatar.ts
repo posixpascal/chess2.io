@@ -6,7 +6,7 @@ import { UPDATE_AVATAR } from '../../../shared/events';
 
 export const avatar = writable({
 	color: localStorage.color || '#ccc',
-	emoji: localStorage.emoji || '🐵'
+	emoji: localStorage.emoji || 1
 });
 
 avatar.subscribe(({ color, emoji }) => {

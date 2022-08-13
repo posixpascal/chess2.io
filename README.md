@@ -4,6 +4,9 @@ A [chess 2 (Oats Jenkins)](https://www.youtube.com/watch?v=mcivL8u176Y) implemen
 
 ![](./screenshots/board.png)
 
+Still in early WIP. 
+
+
 ## 🎉 Features
 
 - Realtime Games vs. Friends & Strangers

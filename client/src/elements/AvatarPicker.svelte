@@ -38,7 +38,7 @@
 <div class="z-20 backdrop backdrop-blur fixed w-full h-full left-0 top-0" on:click={handle}>
 	<div
 		on:click={handle}
-		class="close absolute top-1 right-[20px] cursor-pointer text-[50px] text-blue-200"
+		class="close absolute top-[18px] right-[38px] cursor-pointer text-[50px] text-blue-200"
 	>
 		&cross;
 	</div>
@@ -102,10 +102,11 @@
 
 	.close {
 		background: #555;
-		height: 80px;
+		height: 50px;
+		font-size: 24px;
 		display: flex;
 		align-items: center;
-		width: 80px;
+		width: 50px;
 		justify-content: center;
 		border-radius: 50%;
 	}

@@ -34,33 +34,33 @@
 		</div>
 	</div>
 
-	<div class="mb-20">
-		<h2 class="mb-2">Currently playing</h2>
-		<p>View how other people play Chess 2. Live & in Realtime.</p>
+<!--	<div class="mb-20">-->
+<!--		<h2 class="mb-2">Currently playing</h2>-->
+<!--		<p>View how other people play Chess 2. Live & in Realtime.</p>-->
 
-		<!--        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center flex-wrap gap-10 my-10 mx-auto">-->
-		<!--            <div class="card">-->
-		<!--                <ChessBoard small={1} />-->
-		<!--                <h5>Game #12332</h5>-->
-		<!--            </div>-->
-		<!--            <div class="card">-->
-		<!--                <ChessBoard small={1} />-->
-		<!--                <h5>Game #12332</h5>-->
-		<!--            </div>-->
-		<!--            <div class="card">-->
-		<!--                <ChessBoard small={1} />-->
-		<!--                <h5>Game #12332</h5>-->
-		<!--            </div>-->
-		<!--            <div class="card">-->
-		<!--                <ChessBoard small={1} />-->
-		<!--                <h5>Game #12332</h5>-->
-		<!--            </div>-->
-		<!--            <div class="card">-->
-		<!--                <ChessBoard small={1} />-->
-		<!--                <h5>Game #12332</h5>-->
-		<!--            </div>-->
-		<!--        </div>-->
-	</div>
+<!--		&lt;!&ndash;        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center flex-wrap gap-10 my-10 mx-auto">&ndash;&gt;-->
+<!--		&lt;!&ndash;            <div class="card">&ndash;&gt;-->
+<!--		&lt;!&ndash;                <ChessBoard small={1} />&ndash;&gt;-->
+<!--		&lt;!&ndash;                <h5>Game #12332</h5>&ndash;&gt;-->
+<!--		&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--		&lt;!&ndash;            <div class="card">&ndash;&gt;-->
+<!--		&lt;!&ndash;                <ChessBoard small={1} />&ndash;&gt;-->
+<!--		&lt;!&ndash;                <h5>Game #12332</h5>&ndash;&gt;-->
+<!--		&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--		&lt;!&ndash;            <div class="card">&ndash;&gt;-->
+<!--		&lt;!&ndash;                <ChessBoard small={1} />&ndash;&gt;-->
+<!--		&lt;!&ndash;                <h5>Game #12332</h5>&ndash;&gt;-->
+<!--		&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--		&lt;!&ndash;            <div class="card">&ndash;&gt;-->
+<!--		&lt;!&ndash;                <ChessBoard small={1} />&ndash;&gt;-->
+<!--		&lt;!&ndash;                <h5>Game #12332</h5>&ndash;&gt;-->
+<!--		&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--		&lt;!&ndash;            <div class="card">&ndash;&gt;-->
+<!--		&lt;!&ndash;                <ChessBoard small={1} />&ndash;&gt;-->
+<!--		&lt;!&ndash;                <h5>Game #12332</h5>&ndash;&gt;-->
+<!--		&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--		&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--	</div>-->
 </div>
 
 <style>
