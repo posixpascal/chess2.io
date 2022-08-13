@@ -123,6 +123,10 @@
 		transform: scaleY(-1);
 	}
 
+	.board.flipped .gameover {
+		transform: scaleY(-1);
+	}
+
 	.gameover {
 		position: absolute;
 		inset: 0;
