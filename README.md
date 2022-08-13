@@ -1,10 +1,15 @@
-# ♟ chess2
+# ♟ [chess2.io](https://chess2.io)
 
 A [chess 2 (Oats Jenkins)](https://www.youtube.com/watch?v=mcivL8u176Y) implementation using Svelte & Socket.io. It features realtime multiplayer gameplay, implements all the nitty-gritty game details and is available for free.
 
+Play live on [chess2.io](https://chess2.io)
+
 ![](./screenshots/board.png)
 
-Still in early WIP. 
+## 🚧 Construction
+
+The code base is still in early development as I speedrun' most parts of the game. I'll keep pushing more organized code in the near future.
+
 
 
 ## 🎉 Features
