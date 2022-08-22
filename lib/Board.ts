@@ -193,6 +193,11 @@ export default class Board {
       return this;
     }
 
+    const isValidPosition = toPosition.x >= 4 && toPosition.x <= 5 && toPosition.y >= 4 && toPosition.y <= 5;
+    if (!isValidPosition){
+      return this;
+    }
+
     const bear = new Bear();
     bear.position = toPosition;
     bear.board = this;
