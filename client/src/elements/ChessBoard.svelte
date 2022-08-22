@@ -102,23 +102,7 @@
 </div>
 
 <style>
-	@media (max-width: 760px){
-		.board {
-			transform: scale(0.8);
-		}
-	}
 
-	@media (max-width: 480px){
-		.board {
-			transform: scale(0.7);
-		}
-	}
-
-	@media (max-width: 420px){
-		.board {
-			transform: scale(0.61);
-		}
-	}
 	.clone {
 		z-index: 20;
 		display: flex;
@@ -237,5 +221,42 @@
 
 	.cell.movable {
 		background: lightsalmon !important;
+	}
+
+	@media (max-width: 760px){
+		.board {
+			transform: scale(0.8);
+		}
+		.board.flipped {
+			transform: scale(0.8, -0.8);
+		}
+	}
+
+	@media (max-width: 480px){
+		.board {
+			transform: scale(0.7);
+		}
+		.board.flipped {
+			transform: scale(0.7, -0.7);
+		}
+	}
+
+	@media (max-width: 420px){
+		.board {
+			transform: scale(0.61);
+		}
+		.board.flipped {
+			transform: scale(0.61, -0.61);
+		}
+	}
+
+
+
+	.board.flipped .row {
+		transform: scaleY(-1);
+	}
+
+	.board.flipped .gameover {
+		transform: scaleY(-1);
 	}
 </style>

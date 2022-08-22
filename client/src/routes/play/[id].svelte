@@ -40,8 +40,8 @@
 
 {#if room}
 	<div class="p-10 flex flex-col items-center justify-center">
-		<div class="flex gap-10 divide-amber-200 divide-x-2">
-			<div class="text-left">
+		<div class="flex flex-col md:flex-row gap-10 divide-amber-200 divide-y-2 md:divide-y-0 md:divide-x-2">
+			<div class="text-center md:text-left">
 				<h2 class="mb-1 text-3xl flex items-center gap-2">
 					<span class="text-gray-400 uppercase text-[20px]"> Room </span>
 					<span class="font-mono  text-blue-300 uppercase text-[20px]">
@@ -53,7 +53,7 @@
 					Share this link to invite your friends.
 				</p>
 			</div>
-			<div class="pl-10">
+			<div class="pt-10 md:pt-0 md:pl-10">
 				{#each room.messages.reverse().slice(0, 5) as message}
 					<div class="text-gray-600" transition:slide|local>
 						{message}
@@ -64,15 +64,17 @@
 		{#if game}
 			<div class:inactive-wrapper={!room.isReady}>
 				{#if !room.isReady}
-					<h2 class="text-center mt-20">Waiting for people to join...</h2>
+					<h2 class="text-center text-xl md:text-3xl mt-20">Waiting for people to join...</h2>
 				{/if}
 
 				<div
 					class:inactive={!room.isReady}
-					class="transition-all ease-in-out duration-500 flex my-20 gap-10"
+					class="transition-all ease-in-out duration-500 flex flex-col md:flex-row my-20 gap-10"
 				>
 					<ChessBoard flipped={flipped} {canMove} {game} board={game.board} />
-					<GameOverview players={flipped ? [player1, player2] : [player2, player1]} {game} board={game.board} />
+					<div class="hidden md:block">
+						<GameOverview players={flipped ? [player1, player2] : [player2, player1]} {game} board={game.board} />
+					</div>
 				</div>
 			</div>
 		{:else}
