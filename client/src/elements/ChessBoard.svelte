@@ -102,6 +102,23 @@
 </div>
 
 <style>
+	@media (max-width: 760px){
+		.board {
+			transform: scale(0.8);
+		}
+	}
+
+	@media (max-width: 480px){
+		.board {
+			transform: scale(0.7);
+		}
+	}
+
+	@media (max-width: 420px){
+		.board {
+			transform: scale(0.61);
+		}
+	}
 	.clone {
 		z-index: 20;
 		display: flex;

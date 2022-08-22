@@ -13,6 +13,7 @@
 		</p>
 		<div class="flex gap-5 my-8 mb-20">
 			<a href="/create" class="button cta primary"> Play with Friends </a>
+			<a href="/local" class="button cta secondary"> Local Game </a>
 		</div>
 		<Game gameId="1234" />
 	</div>
@@ -67,4 +68,9 @@
 	/*.card {*/
 	/*	@apply bg-slate-800 p-5 pt-10 rounded-xl hover:shadow-xl cursor-pointer;*/
 	/*}*/
+	@media (max-width: 420px){
+		iframe {
+			width: 320px;
+		}
+	}
 </style>

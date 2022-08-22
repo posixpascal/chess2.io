@@ -5,6 +5,11 @@
 @layer base {
 	body {
 		@apply bg-slate-900 text-slate-300;
+		overflow-x: hidden !important;
+	}
+
+	html {
+		overflow-x: hidden !important;
 	}
 
 	h1 {
@@ -34,7 +39,7 @@
 
 	button.cta,
 	.button.cta {
-		@apply px-10 py-4 text-3xl;
+		@apply md:px-10 md:py-4 text-sm md:text-3xl;
 	}
 
 	button.primary,

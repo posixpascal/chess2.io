@@ -9,11 +9,11 @@
 	const game = createGameStore(gameId, null, null, computer);
 </script>
 
-<div class="flex gap-10">
-	<div>
-		<ChessBoard {game} board={game.board} />
+<div class="flex flex-col md:flex-row gap-10">
+	<ChessBoard {game} board={game.board} />
+	<div class="hidden md:block">
+		<GameOverview {game} board={game.board} />
 	</div>
-	<GameOverview {game} board={game.board} />
 </div>
 
 <style>
