@@ -6,8 +6,8 @@ import * as events from '../../../shared/events';
 
 export const rooms: Writable<Record<string, Room>> = writable({});
 
-export const socket = io(`${window.location.protocol}//${window.location.host}`);
-//export const socket = io(`${window.location.protocol}//${window.location.hostname}:3000`);
+//export const socket = io(`${window.location.protocol}//${window.location.host}`);
+export const socket = io(`${window.location.protocol}//${window.location.hostname}:3000`);
 
 
 export const SOUNDS = {

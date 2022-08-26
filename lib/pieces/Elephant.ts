@@ -9,7 +9,15 @@ export class Elephant extends Piece {
   }
 
   get possibleMoves() {
-    let moves = [...this.positionDiagonally(2)];
+    let moves = [];
+
+    if (this.board.pieceAt(this.positionDiagonallyRight(1))){
+      moves.push(this.positionDiagonallyRight(2));
+    }
+
+    if (this.board.pieceAt(this.positionDiagonallyLeft(1))){
+      moves.push(this.positionDiagonallyLeft(2));
+    }
 
     return moves.filter((pos: BoardPosition) => this.isValidPosition(pos));
   }

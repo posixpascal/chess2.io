@@ -27,7 +27,6 @@ export class Crow extends Piece {
     }
 
     const nearbyPositions = [
-      ...this.positionDiagonally(1),
       this.positionForward(1),
       this.positionLeft(1),
       this.positionRight(1),

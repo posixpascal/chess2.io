@@ -114,6 +114,25 @@ export class Piece {
     ];
   }
 
+
+  positionDiagonallyRight(delta = 1) {
+    return [
+      {
+        x: this.position.x - delta,
+        y: this.position.y + delta * this.forwardModifier,
+      },
+    ];
+  }
+
+  positionDiagonallyLeft(delta = 1) {
+    return [
+      {
+        x: this.position.x + delta,
+        y: this.position.y + delta * this.forwardModifier,
+      },
+    ];
+  }
+
   /**
    * Calculates a list of positions which can be accessed by the corresponding piece diagonally.
    * It stops producing diagonal positions until a piece is detected and adds the piece's position
